@@ -37,10 +37,6 @@ def drawControls(win):
   probX.setText("50")
   probY.setText("50")
 
-  rectangle = Rectangle(Point(X_START, Y_START), Point(X_END, Y_END))
-  #rectangle.setOutline("light gray")
-  toDraw.append(rectangle)
-
   drawAll(win, toDraw)
   return [width, height, probX, probY]
 
@@ -55,6 +51,11 @@ def drawStitches(win, stitches, controls):
     probX = float(probX)
     probY = float(probY)
     stitchSize = min((X_END-X_START)/width, (Y_END-Y_START)/height)
+
+    rectangleX = width * stitchSize + X_START
+    rectangleY = height * stitchSize + Y_START
+    rectangle = Rectangle(Point(X_START, Y_START), Point(rectangleX, rectangleY))
+    stitches.append(rectangle)
 
     # horizontal stitches
     startStitches = random.choices([True, False], weights=(probX, 100-probX), k=height)

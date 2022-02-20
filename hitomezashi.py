@@ -93,8 +93,10 @@ def main():
   stitches = drawStitches(win, [], list(map(getText, controls)))
 
   while True:
-    key = win.getKey()
-    if key == "Return":
-      stitches = drawStitches(win, stitches, list(map(getText, controls)))
+    try:
+      key = win.getKey()
+      if key == "Return":
+        stitches = drawStitches(win, stitches, list(map(getText, controls)))
+    except: pass
 
 main()

@@ -49,40 +49,39 @@ def drawStitches(win, stitches, controls):
   undrawAll(stitches)
   stitches = []
 
-  #try:
-  width = int(width)
-  height = int(height)
-  probX = float(probX)
-  probY = float(probY)
-  stitchSize = min((X_END-X_START)/width, (Y_END-Y_START)/height)
+  try:
+    width = int(width)
+    height = int(height)
+    probX = float(probX)
+    probY = float(probY)
+    stitchSize = min((X_END-X_START)/width, (Y_END-Y_START)/height)
 
-  # horizontal stitches
-  startStitches = random.choices([True, False], weights=(probX, 100-probX), k=height)
-  for y in range(height):
-    startStitch = startStitches[y]
-    for x in range(width):
-      if startStitch:
-        xStart = X_START + x * stitchSize
-        xEnd = X_START + (x + 1) * stitchSize
-        yStart = yEnd = Y_START + (stitchSize * y)
-        stitches.append(Line(Point(xStart, yStart), Point(xEnd, yEnd)))
-      startStitch = not startStitch
-
-  # vertical stitches
-  startStitches = random.choices([True, False], weights=(probY, 100-probY), k=width)
-  for x in range(width):
-    startStitch = startStitches[x]
+    # horizontal stitches
+    startStitches = random.choices([True, False], weights=(probX, 100-probX), k=height)
     for y in range(height):
-      if startStitch:
-        yStart = Y_START + y * stitchSize
-        yEnd = Y_START + (y + 1) * stitchSize
-        xStart = xEnd = X_START + (stitchSize * x)
-        stitches.append(Line(Point(xStart, yStart), Point(xEnd, yEnd)))
-      startStitch = not startStitch
+      startStitch = startStitches[y]
+      for x in range(width):
+        if startStitch:
+          xStart = X_START + x * stitchSize
+          xEnd = X_START + (x + 1) * stitchSize
+          yStart = yEnd = Y_START + (stitchSize * y)
+          stitches.append(Line(Point(xStart, yStart), Point(xEnd, yEnd)))
+        startStitch = not startStitch
 
-  drawAll(win, stitches)
-    
-  #except: pass
+    # vertical stitches
+    startStitches = random.choices([True, False], weights=(probY, 100-probY), k=width)
+    for x in range(width):
+      startStitch = startStitches[x]
+      for y in range(height):
+        if startStitch:
+          yStart = Y_START + y * stitchSize
+          yEnd = Y_START + (y + 1) * stitchSize
+          xStart = xEnd = X_START + (stitchSize * x)
+          stitches.append(Line(Point(xStart, yStart), Point(xEnd, yEnd)))
+        startStitch = not startStitch
+
+    drawAll(win, stitches)
+  except: pass
 
   return stitches
 
